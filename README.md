@@ -1,7 +1,6 @@
 # HPC tutorial
 
 ## How to connect to a remote session
-***
 
 ### 1. Get a terminal application
 
@@ -55,7 +54,7 @@ Run the following commands in a terminal (substituting *studentXX* with the name
 
 
 ## How to reserve resources  on the cluster
-***
+
 
 ### Web monitoring interfaces
 
@@ -120,7 +119,7 @@ OAR features a very powerful resource filtering/matching engine able to specify 
 		(access)$> oarsub -I -l /enclosure=2/nodes=1,walltime=6
 
 ## Software environment
-***
+
 
 On the ULHPC clusters the software is managed with [Environment Modules](http://modules.sourceforge.net/). This is a software package that allows us to provide a [multitude of applications and libraries in multiple versions](http://hpc.uni.lu/users/software/) on the UL HPC platform. The tool itself is used to manage environment variables such as `PATH`, `LD_LIBRARY_PATH` and `MANPATH`, enabling the easy loading and unloading of application/library profiles and their dependencies.
 
@@ -128,8 +127,23 @@ On the ULHPC clusters the software is managed with [Environment Modules](http://
 * [Modules tutorial @ NERSC](https://www.nersc.gov/users/software/nersc-user-environment/modules/)
 * [UL HPC documentation on modules](https://hpc.uni.lu/users/docs/modules.html)
 
+## Test data
+
+This tutorial relies on several input files for the bioinformatics packages, thus you will need to download them
+before following the instructions in the next sections:
+
+    (access)$> mkdir -p ~/bioinfo-tutorial/tophat ~/bioinfo-tutorial/mpiblast
+    (access)$> cd ~/bioinfo-tutorial
+    (access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/tophat/test_data.tar.gz -O tophat/test_data.tar.gz
+    (access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/tophat/test2_path -O tophat/test2_path
+    (access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/mpiblast/test.fa -O mpiblast/test.fa
+
+Or simply clone the full ULHPC tutorials repository and make a link to the Bioinformatics tutorial:
+
+    (access)$> git clone https://github.com/ULHPC/tutorials.git
+    (access)$> ln -s tutorials/advanced/Bioinformatics/ ~/bioinfo-tutorial
+
 ## Run mpiBLAST
-***
 
 Characterization: data intensive, little RAM overhead, native parallelization
 
@@ -191,10 +205,9 @@ coordinating file output, with the additional processes performing the search.
 
 Launch jobs with 8, 14 and 24 cores across two nodes and measure the speedup obtained.
 
-**Hint**: To reserve 8 cores accress two nodes, use `oarsub -I -l nodes=2/core=4,walltime=00:30:00`
+**Hint**: To reserve 8 cores across two nodes, use `oarsub -I -l nodes=2/core=4,walltime=00:30:00`
 
 ## TopHat (and Bowtie2)
-***
 
 Characterization: data intensive, RAM intensive
 
@@ -210,8 +223,7 @@ Bowtie 2 is an ultrafast and memory-efficient tool for aligning sequencing reads
 
 ### Example
 
-This example will show you how to use the latest version of TopHat in conjunction with the latest Bowtie2, by using the
-versions prebuilt for Linux by the developers.
+This example will show you how to use TopHat in conjunction with Bowtie2.
 
 
 ```
@@ -295,3 +307,6 @@ Launch jobs with 1, 2, 4, 8 and 10 cores on one node, using the second test file
 
 * Image 1: by Saleh Salem on [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-log-into-a-vps-with-putty-windows-users) licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 * Image 2: https://commons.wikimedia.org/wiki/File:Public_key_encryption.svg
+* Text for Section 1 modified from [LCSB R3 Linux 101 tutorial](https://git-r3lab.uni.lu/tutorial/2015-06-19-R3-Linux101)
+* Text for Section 2 and 3 modified from [ULHPC "Getting started" tutorial](https://github.com/ULHPC/tutorials/tree/devel/basic/getting_started)
+* Text for Section 4-6 modified from [ULHPC "Bioinformatics" tutorial](https://github.com/ULHPC/tutorials/tree/devel/advanced/Bioinformatics)
