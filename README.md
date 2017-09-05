@@ -129,6 +129,8 @@ On the ULHPC clusters the software is managed with [Environment Modules](http://
 
 ## Test data
 
+**Important:** This is already done for the `studentXX` accounts, so you can skip this section and go ahead to run mpiBLAST.
+
 This tutorial relies on several input files for the bioinformatics packages, thus you will need to download them
 before following the instructions in the next sections:
 
@@ -142,6 +144,9 @@ Or simply clone the full ULHPC tutorials repository and make a link to the Bioin
 
     (access)$> git clone https://github.com/ULHPC/tutorials.git
     (access)$> ln -s tutorials/advanced/Bioinformatics/ ~/bioinfo-tutorial
+
+Additionally you need a `.ncbirc` file containing the paths to the blast databases (too big to download quickly). The file can be downloaded from [here](https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/mpiblast/.ncbirc)
+and needs to be placed in your $HOME directory (make sure to backup an existing $HOME/.ncbirc before overwriting it with the one in this tutorial).
 
 ## Run mpiBLAST
 
@@ -185,8 +190,6 @@ being proposed later on as exercises.
 
 mpiBLAST requires access to NCBI substitution matrices and pre-formatted BLAST databases. For the purposes of this tutorial, a FASTA (NR)
 database has been formatted and split into 12 fragments, enabling the parallel alignment of a query against the database.
-
-A `.ncbirc` file containing the paths to the necessary data files has been set up in your `$HOME` directory.
 
 We will run a test using mpiBLAST. Note that mpiBLAST requires running with at least 3 processes, 2 dedicated for scheduling tasks and
 coordinating file output, with the additional processes performing the search.
