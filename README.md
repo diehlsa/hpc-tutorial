@@ -198,10 +198,10 @@ coordinating file output, with the additional processes performing the search.
 
 	# Go to the test directory and execute mpiBLAST with one core for search
 	(node)$> cd ~/bioinfo-tutorial/mpiblast
-	(node)$> mpirun -np 3 mpiblast -p blastp -d nr -i test.fa -o test.out
+	(node)$> mpirun -hostfile $OAR_NODEFILE -np 3 mpiblast -p blastp -d nr -i test.fa -o test.out
 
 	# Note the speedup when using 12 cores
-	(node)$> mpirun -np 12 mpiblast -p blastp -d nr -i test.fa -o test.out
+	(node)$> mpirun -hostfile $OAR_NODEFILE -np 12 mpiblast -p blastp -d nr -i test.fa -o test.out
 
 
 ### Exercises
