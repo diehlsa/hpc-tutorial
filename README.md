@@ -165,7 +165,7 @@ being proposed later on as exercises.
 
 ```
 # Connect to Gaia (Linux/OS X):
-(yourmachine)$> ssh -p 8022 -i /path/to/studenXX.key studentXX@access-gaia.uni.lu
+(yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
 
 # Request 1 full node in an interactive job:
 (access-gaia)$> oarsub -I -l nodes=1,walltime=00:30:00
