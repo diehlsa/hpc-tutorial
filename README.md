@@ -77,7 +77,7 @@ Each cluster offers a set of web services to monitor the platform usage:
 * a _OAR resource_ corresponds to a node or part of it (CPU/core)
 * a _OAR job_ is characterized by an execution time (walltime) on a set of resources.
   There exists two types of jobs:
-  * _interactive_: you get a shell on the first reserve node
+  * _interactive_: you get a shell on the first reserved node
   * _passive_: classical batch job where the script passed as argument to `oarsub` is executed **on the first reserved node**
 
 For simplicity we will only cover interactive jobs in this tutorial.
@@ -114,7 +114,7 @@ OAR features a very powerful resource filtering/matching engine able to specify 
 		(access)$> oarsub -I -l /enclosure=1/nodes=3/core=2,walltime=3:15
 
 
-* Reserve interactively two full nodes belonging to the different enclosure for 6 hours:
+* Reserve interactively two full nodes belonging to different enclosures for 6 hours:
 
 		(access)$> oarsub -I -l /enclosure=2/nodes=1,walltime=6
 
@@ -231,7 +231,7 @@ This example will show you how to use TopHat in conjunction with Bowtie2.
 
 ```
 # Connect to Gaia (Linux/OS X):
-(yourmachine)$> ssh access-gaia.uni.lu
+(yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
 
 # Request 1 full node in an interactive job:
 (gaia-frontend)$> oarsub -I -l nodes=1,walltime=00:30:00
@@ -290,7 +290,7 @@ To monitor the run of Tophat, open a new session or terminal window and connect 
 # Check the running jobs
 (access)$> oarstat -u
 
-# Connect to a running job
+# Connect to your running job
 (access)$> oarsub -C <jobid>
 
 # Monitor CPU and RAM usage
