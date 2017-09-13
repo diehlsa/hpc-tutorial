@@ -30,7 +30,7 @@
 
 * **What is a SSH key pair?**
 
-<img src="images/ssh.png" width=800>
+<img src="images/ssh.png" width=900>
 
 #### Step 2a: Connect to UL HPC (Linux / Mac OS / Unix)
 
