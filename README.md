@@ -30,13 +30,15 @@
 
 * **What is a SSH key pair?**
 
-<img src="images/525px-Public_key_encryption.svg.png" width=400>
+<img src="images/ssh.png" width=800>
 
 #### Step 2a: Connect to UL HPC (Linux / Mac OS / Unix)
 
 Run the following commands in a terminal (substituting *studentXX* with the name of the key file you received from us):
 
-        (laptop)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
+```bash
+(laptop)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
+```
 
 #### Step 2b: Connect to UL HPC (Windows)
 
@@ -86,12 +88,17 @@ We will now see the basic commands of OAR.
 
 Connect to the frontend of the Gaia cluster (access-gaia.uni.lu). You can request resources in interactive mode with the following command:
 
-	(access)$> oarsub -I
+```bash
+(access)$> oarsub -I
+```
 
 Notice that with no parameters, oarsub gave you one resource (one core) for two hours. You were also directly connected to the node you reserved with an interactive shell.
-  Now exit the reservation:
 
-    (node)$> exit      # or CTRL-D
+Now exit the reservation:
+
+```bash
+(node)$> exit      # or CTRL-D
+```
 
 When you run exit, you are disconnected and your reservation is terminated.
 
@@ -99,14 +106,16 @@ When you run exit, you are disconnected and your reservation is terminated.
 
 You can check the status of your running jobs using `oarstat` command:
 
-		(access)$> oarstat      # access all jobs
-		(access)$> oarstat -u   # access all your jobs
+```bash
+(access)$> oarstat      # access all jobs
+(access)$> oarstat -u   # access all your jobs
+```
 
 #### Hierarchical filtering of resources
 
 OAR features a very powerful resource filtering/matching engine able to specify resources in a **hierarchical**  way using the `/` delimiter. The resource property hierarchy is as follows:
 
-		enclosure -> nodes -> cpu -> core
+    enclosure -> nodes -> cpu -> core
 
 
 *  Reserve interactively 2 cores on 3 different nodes belonging to the same enclosure (**total: 6 cores**) for 3h15:
@@ -134,16 +143,13 @@ On the ULHPC clusters the software is managed with [Environment Modules](http://
 This tutorial relies on several input files for the bioinformatics packages, thus you will need to download them
 before following the instructions in the next sections:
 
-    (access)$> mkdir -p ~/bioinfo-tutorial/tophat ~/bioinfo-tutorial/mpiblast
-    (access)$> cd ~/bioinfo-tutorial
-    (access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/tophat/test_data.tar.gz -O tophat/test_data.tar.gz
-    (access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/tophat/test2_path -O tophat/test2_path
-    (access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/mpiblast/test.fa -O mpiblast/test.fa
-
-Or simply clone the full ULHPC tutorials repository and make a link to the Bioinformatics tutorial:
-
-    (access)$> git clone https://github.com/ULHPC/tutorials.git
-    (access)$> ln -s tutorials/advanced/Bioinformatics/ ~/bioinfo-tutorial
+```bash
+(access)$> mkdir -p ~/bioinfo-tutorial/tophat ~/bioinfo-tutorial/mpiblast
+(access)$> cd ~/bioinfo-tutorial
+(access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/tophat/test_data.tar.gz -O tophat/test_data.tar.gz
+(access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/tophat/test2_path -O tophat/test2_path
+(access)$> wget --no-check-certificate https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/mpiblast/test.fa -O mpiblast/test.fa
+```
 
 Additionally you need a `.ncbirc` file containing the paths to the blast databases (too big to download quickly). The file can be downloaded from [here](https://raw.github.com/ULHPC/tutorials/devel/advanced/Bioinformatics/mpiblast/.ncbirc)
 and needs to be placed in your $HOME directory (make sure to backup an existing $HOME/.ncbirc before overwriting it with the one in this tutorial).
@@ -163,7 +169,7 @@ mpiBLAST is a freely available, open-source, parallel implementation of NCBI BLA
 This example will be run in an interactive session, with batch-mode executions
 being proposed later on as exercises.
 
-```
+```bash
 # Connect to Gaia (Linux/OS X):
 (yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
 
@@ -195,14 +201,14 @@ We will run a test using mpiBLAST. Note that mpiBLAST requires running with at l
 coordinating file output, with the additional processes performing the search.
 
 
+```bash
+# Go to the test directory and execute mpiBLAST with one core for search
+(node)$> cd ~/bioinfo-tutorial/mpiblast
+(node)$> mpirun -hostfile $OAR_NODEFILE -np 3 mpiblast -p blastp -d nr -i test.fa -o test.out
 
-	# Go to the test directory and execute mpiBLAST with one core for search
-	(node)$> cd ~/bioinfo-tutorial/mpiblast
-	(node)$> mpirun -hostfile $OAR_NODEFILE -np 3 mpiblast -p blastp -d nr -i test.fa -o test.out
-
-	# Note the speedup when using 12 cores
-	(node)$> mpirun -hostfile $OAR_NODEFILE -np 12 mpiblast -p blastp -d nr -i test.fa -o test.out
-
+# Note the speedup when using 12 cores
+(node)$> mpirun -hostfile $OAR_NODEFILE -np 12 mpiblast -p blastp -d nr -i test.fa -o test.out
+```
 
 ### Exercises
 
@@ -229,7 +235,7 @@ Bowtie 2 is an ultrafast and memory-efficient tool for aligning sequencing reads
 This example will show you how to use TopHat in conjunction with Bowtie2.
 
 
-```
+```bash
 # Connect to Gaia (Linux/OS X):
 (yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
 
@@ -258,17 +264,18 @@ This example will show you how to use TopHat in conjunction with Bowtie2.
 
 Now we will make a quick TopHat test, using the provided sample files:
 
-    # Go to the test directory, unpack the sample dataset and go to it
-    (node)$> cd ~/bioinfo-tutorial/tophat
-    (node)$> tar xzvf test_data.tar.gz
-    (node)$> cd test_data
+```bash
+# Go to the test directory, unpack the sample dataset and go to it
+(node)$> cd ~/bioinfo-tutorial/tophat
+(node)$> tar xzvf test_data.tar.gz
+(node)$> cd test_data
 
+# Launch TopHat in serial mode
+(node)$> tophat -r 20 test_ref reads_1.fq reads_2.fq
 
-    # Launch TopHat in serial mode
-    (node)$> tophat -r 20 test_ref reads_1.fq reads_2.fq
-
-    # Launch TopHat in parallel mode
-    (node)$> tophat -p 12 -r 20 test_ref reads_1.fq reads_2.fq
+# Launch TopHat in parallel mode
+(node)$> tophat -p 12 -r 20 test_ref reads_1.fq reads_2.fq
+```
 
 We can see that for this fast execution, increasing the number of threads does not improve the calculation time due to the relatively high overhead of thread creation.
 Note that TopHat / Bowtie are not MPI applications and as such can take advantage of at most one compute node.
@@ -276,7 +283,7 @@ Note that TopHat / Bowtie are not MPI applications and as such can take advantag
 Next, we will make a longer test, where it will be interesting to monitor the TopHat pipeline (with `htop` for example) to see the transitions between the serial
 and parallel stages (left as an exercise).
 
-```
+```bash
 # Load the file which will export $TOPHATTEST2 in the environment
 (node)$> source ~/bioinfo-tutorial/tophat/test2_path
 
@@ -286,7 +293,7 @@ and parallel stages (left as an exercise).
 
 To monitor the run of Tophat, open a new session or terminal window and connect to the Gaia cluster.
 
-```
+```bash
 # Check the running jobs
 (access)$> oarstat -u
 
@@ -309,7 +316,7 @@ Launch jobs with 1, 2, 4, 8 and 10 cores on one node, using the second test file
 **References**
 
 * Image 1: by Saleh Salem on [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-log-into-a-vps-with-putty-windows-users) licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-* Image 2: https://commons.wikimedia.org/wiki/File:Public_key_encryption.svg
+* Image 2: from [SSH tutorial](https://varrette.gforge.uni.lu/blog/2016/05/12/tutorial-ssh/) by Sébastien Varrette ([falkor](https://github.com/falkor))
 * Text for Section 1 modified from [LCSB R3 Linux 101 tutorial](https://git-r3lab.uni.lu/tutorial/2015-06-19-R3-Linux101)
 * Text for Section 2 and 3 modified from [ULHPC "Getting started" tutorial](https://github.com/ULHPC/tutorials/tree/devel/basic/getting_started)
 * Text for Section 4-6 modified from [ULHPC "Bioinformatics" tutorial](https://github.com/ULHPC/tutorials/tree/devel/advanced/Bioinformatics)
