@@ -37,7 +37,7 @@
 Run the following commands in a terminal (substituting *studentXX* with the name of the key file you received from us):
 
 ```bash
-(laptop)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
+(laptop)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-chaos.uni.lu
 ```
 
 #### Step 2b: Connect to UL HPC (Windows)
@@ -45,7 +45,7 @@ Run the following commands in a terminal (substituting *studentXX* with the name
 * Open MobaXterm: **Start** > **Program Files** > **MobaXterm**
 * Click on **Session**
   * In **SSH Session**:
-    * Remote host: `access-gaia.uni.lu`
+    * Remote host: `access-chaos.uni.lu`
 		* Check the **Specify username** box
 		* Username: `studentXX`
     * Port: 8022
@@ -62,7 +62,7 @@ Run the following commands in a terminal (substituting *studentXX* with the name
 
 Each cluster offers a set of web services to monitor the platform usage:
 
-* [**Monika**](https://hpc.uni.lu/gaia/monika), the visualization interface of the OAR scheduler, which  display the status of the clusters as regards the jobs running on the platform.
+* [**Monika**](https://hpc.uni.lu/chaos/monika), the visualization interface of the OAR scheduler, which  display the status of the clusters as regards the jobs running on the platform.
 * A [pie-chart overview of the platform usage](https://hpc.uni.lu/status/overview.html)
 * [DrawGantt](https://hpc.uni.lu/status/drawgantt.html), the Gantt visualization of jobs scheduled on OAR
 * [Ganglia](https://hpc.uni.lu/status/ganglia.html), a scalable distributed monitoring system for high-performance computing systems such as clusters and Grids.
@@ -86,7 +86,7 @@ For simplicity we will only cover interactive jobs in this tutorial.
 
 We will now see the basic commands of OAR.
 
-Connect to the frontend of the Gaia cluster (access-gaia.uni.lu). You can request resources in interactive mode with the following command:
+Connect to the frontend of the Chaos cluster (access-chaos.uni.lu). You can request resources in interactive mode with the following command:
 
 ```bash
 (access)$> oarsub -I
@@ -170,11 +170,11 @@ This example will be run in an interactive session, with batch-mode executions
 being proposed later on as exercises.
 
 ```bash
-# Connect to Gaia (Linux/OS X):
-(yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
+# Connect to Chaos (Linux/OS X):
+(yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-chaos.uni.lu
 
 # Request 1 full node in an interactive job:
-(access-gaia)$> oarsub -I -l nodes=1,walltime=00:30:00
+(access-chaos)$> oarsub -I -l nodes=1,walltime=00:30:00
 
 # Load the bioinfo software set
 (node)$> module use $RESIF_ROOTINSTALL/bioinfo/modules/all
@@ -236,11 +236,11 @@ This example will show you how to use TopHat in conjunction with Bowtie2.
 
 
 ```bash
-# Connect to Gaia (Linux/OS X):
-(yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-gaia.uni.lu
+# Connect to Chaos (Linux/OS X):
+(yourmachine)$> ssh -p 8022 -i /path/to/studentXX.key studentXX@access-chaos.uni.lu
 
 # Request 1 full node in an interactive job:
-(gaia-frontend)$> oarsub -I -l nodes=1,walltime=00:30:00
+(chaos-frontend)$> oarsub -I -l nodes=1,walltime=00:30:00
 
 # Load the bioinfo software set
 (node)$> module use $RESIF_ROOTINSTALL/bioinfo/modules/all
@@ -291,7 +291,7 @@ and parallel stages (left as an exercise).
 (node)$> tophat2 -p 12 -g 1 -r 200 --mate-std-dev 30 -o ./  $TOPHATTEST2/chr10.hs $TOPHATTEST2/SRR027888.SRR027890_chr10_1.fastq $TOPHATTEST2/SRR027888.SRR027890_chr10_2.fastq
 ```
 
-To monitor the run of Tophat, open a new session or terminal window and connect to the Gaia cluster.
+To monitor the run of Tophat, open a new session or terminal window and connect to the Chaos cluster.
 
 ```bash
 # Check the running jobs
