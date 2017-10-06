@@ -204,6 +204,7 @@ coordinating file output, with the additional processes performing the search.
 ```bash
 # Go to the test directory and execute mpiBLAST with one core for search
 (node)$> cd ~/bioinfo-tutorial/mpiblast
+(node)$> export I_MPI_FABRICS=shm:tcp
 (node)$> mpirun -hostfile $OAR_NODEFILE -np 3 mpiblast -p blastp -d nr -i test.fa -o test.out
 
 # Note the speedup when using 4 cores
